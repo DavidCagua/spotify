@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 
 const initialState: ResultState = {
   results: [],
+  searchKeyword: "",
 };
 
 const reducer = (
@@ -12,7 +13,14 @@ const reducer = (
     case actionTypes.SET_NEW_RELEASES:
       return {
         ...state,
-        results: action.payload,
+        results: [],
+      };
+    case actionTypes.SEARCH:
+      console.log(action.payload);
+
+      return {
+        ...state,
+        searchKeyword: "action.payload",
       };
   }
   return state;

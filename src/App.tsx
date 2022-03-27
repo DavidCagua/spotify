@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import SearchBar from "./components/SearchBar";
-import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import apiService from "./api/api-service";
 import { setAlbums } from "./store/actionCreators";
 import { Dispatch } from "redux";
 import ResultList from "./components/ResultList";
 import Filters from "./components/Filters";
+import Wrapper from "./components/Wrapper";
 
 function App() {
+  const searchKeyword: string = useSelector(
+    (state: ResultState) => state.searchKeyword
+  );
   const results: Result[] = useSelector((state: ResultState) => state.results);
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -34,11 +37,11 @@ function App() {
       });
   }, []);
   return (
-    <main>
+    <Wrapper>
       <SearchBar />
       <Filters />
       <ResultList resultsa={results} />
-    </main>
+    </Wrapper>
   );
 }
 

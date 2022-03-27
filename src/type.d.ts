@@ -8,11 +8,12 @@ interface Result {
 
 type ResultState = {
   results: Result[];
+  searchKeyword: string;
 };
 
 type SearchAction = {
   type: string;
-  payload: Result[];
+  payload: Result[] | string;
 };
 
 type DispatchType = (args: SearchAction) => SearchAction;

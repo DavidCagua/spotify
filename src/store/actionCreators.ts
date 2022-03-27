@@ -7,16 +7,17 @@ export function setAlbums(result: Result[]) {
   };
 
   return (dispatch: DispatchType) => {
-    setTimeout(() => {
-      dispatch(action);
-    }, 500);
+    dispatch(action);
   };
 }
 
-export function simulateHttpRequest(action: SearchAction) {
+export function searchReducer(searchKeyword: string) {
+  const action: SearchAction = {
+    type: actionTypes.SEARCH,
+    payload: searchKeyword,
+  };
+
   return (dispatch: DispatchType) => {
-    setTimeout(() => {
-      dispatch(action);
-    }, 500);
+    dispatch(action);
   };
 }

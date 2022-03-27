@@ -4,19 +4,29 @@ import Card from "./Card";
 type ResultListProps = {
   resultsa?: any;
 };
-const ResultListStyled = styled.div``;
+const ResultListStyled = styled.div`
+  display: grid;
+  grid-auto-flow: columns;
+  grid-template-columns: repeat(auto-fill, 264px);
+  grid-column-gap: 70px;
+  grid-row-gap: 2.3em;
+  background: white;
+  width: 100%;
+  justify-content: center;
+  background: var(--background);
+`;
 function ResultList({ resultsa }: ResultListProps) {
-  if (resultsa) {
-    console.log("hola");
-    return (
-      <div>
-        {resultsa.map((result: any) => {
+  return (
+    <ResultListStyled>
+      {resultsa.length > 0 ? (
+        resultsa.map((result: any) => {
           return <Card>{result}</Card>;
-        })}
-      </div>
-    );
-  }
-  return <h1>nada</h1>;
+        })
+      ) : (
+        <h1>Cargando ...</h1>
+      )}
+    </ResultListStyled>
+  );
 }
 
 export default ResultList;
