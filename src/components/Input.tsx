@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const SearchBarStyled = styled.label`
+const InputStyled = styled.label`
   display: inline-flex;
   background: var(--white);
   align-items: center;
@@ -28,24 +28,13 @@ const SearchBarStyled = styled.label`
   }
 `;
 
-function SearchBar({ ...props }) {
-  const [inputValue, setInputValue] = useState("");
-  const search = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+function Input({ ...props }) {
   return (
-    <SearchBarStyled>
-      {inputValue && <i className="fas fa-times close"></i>}
+    <InputStyled>
       <i className="fas fa-search"></i>
-      <input
-        type="text"
-        placeholder="hola"
-        {...props}
-        onChange={search}
-        value={inputValue}
-      />
-    </SearchBarStyled>
+      <input type="text" {...props} />
+    </InputStyled>
   );
 }
 
-export default SearchBar;
+export default Input;

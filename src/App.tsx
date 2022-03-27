@@ -1,34 +1,44 @@
 import React, { useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import styled from "styled-components";
-import axios from "axios";
-import querystring from "querystring";
+import { useSelector, useDispatch } from "react-redux";
+import apiService from "./api/api-service";
+import { setAlbums } from "./store/actionCreators";
+import { Dispatch } from "redux";
+import ResultList from "./components/ResultList";
+import Filters from "./components/Filters";
 
 function App() {
+  const results: Result[] = useSelector((state: ResultState) => state.results);
+
+  const dispatch: Dispatch<any> = useDispatch();
   useEffect(() => {
-    axios
-      .post(
-        "https://accounts.spotify.com/api/token",
-        "grant_type=client_credentials",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          auth: {
-            username: "9aaaddb6b4a84a13a3757fdfbe6244b4",
-            password: "bfde46eb6a904bf79b22937e988123c9",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response.data.access_token);
+    apiService
+      .getRecommendations()
+      .then((response) => {
+        console.log(response.data.albums.items);
+        dispatch(
+          setAlbums(
+            response.data.albums.items.map((resultItem: Result) => {
+              return {
+                id: resultItem.id,
+                name: resultItem.name,
+                image: resultItem.images[1].url,
+              };
+            })
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
   return (
-    <div className="App">
+    <main>
       <SearchBar />
-    </div>
+      <Filters />
+      <ResultList resultsa={results} />
+    </main>
   );
 }
 
