@@ -1,9 +1,17 @@
 import * as actionTypes from "./actionTypes";
 
-export function setAlbums(result: Result[]) {
+export function searchReducer(
+  searchKeyword: string,
+  albums = [],
+  songs = [],
+  artists = []
+) {
   const action: SearchAction = {
-    type: actionTypes.SET_NEW_RELEASES,
-    payload: result,
+    type: actionTypes.SEARCH,
+    payloadKeyword: searchKeyword,
+    payloadAlbums: albums,
+    payloadArtists: songs,
+    payloadSongs: artists,
   };
 
   return (dispatch: DispatchType) => {
@@ -11,10 +19,12 @@ export function setAlbums(result: Result[]) {
   };
 }
 
-export function searchReducer(searchKeyword: string) {
+export function filterReducer(
+  filterType: "bestMatch" | "artist" | "album" | "song" | "history"
+) {
   const action: SearchAction = {
-    type: actionTypes.SEARCH,
-    payload: searchKeyword,
+    type: actionTypes.FILTER,
+    payloadFilter: filterType,
   };
 
   return (dispatch: DispatchType) => {

@@ -1,46 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import apiService from "./api/api-service";
-import { setAlbums } from "./store/actionCreators";
-import { Dispatch } from "redux";
 import ResultList from "./components/ResultList";
 import Filters from "./components/Filters";
 import Wrapper from "./components/Wrapper";
 
 function App() {
-  const searchKeyword: string = useSelector(
-    (state: ResultState) => state.searchKeyword
-  );
-  const results: Result[] = useSelector((state: ResultState) => state.results);
+  const filter = useSelector((state: ResultState) => state.filter);
+  const albums: Result[] = useSelector((state: ResultState) => state.albums);
+  const artists: Result[] = useSelector((state: ResultState) => state.artists);
+  const songs: Result[] = useSelector((state: ResultState) => state.songs);
+  const [history, setHistory] = useState<Result[]>([]);
 
-  const dispatch: Dispatch<any> = useDispatch();
   useEffect(() => {
-    apiService
-      .getRecommendations()
-      .then((response) => {
-        console.log(response.data.albums.items);
-        dispatch(
-          setAlbums(
-            response.data.albums.items.map((resultItem: Result) => {
-              return {
-                id: resultItem.id,
-                name: resultItem.name,
-                image: resultItem.images[1].url,
-              };
-            })
-          )
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    apiService.getHistory().then((res) => {
+      setHistory(res.data);
+    });
+    console.log(process.env.REACT_APP_KEY);
   }, []);
   return (
     <Wrapper>
       <SearchBar />
       <Filters />
-      <ResultList resultsa={results} />
+      <ResultList
+        albums={albums}
+        artists={artists}
+        songs={songs}
+        history={history}
+        filter={filter}
+      />
     </Wrapper>
   );
 }

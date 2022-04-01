@@ -1,8 +1,12 @@
 import * as actionTypes from "./actionTypes";
 
 const initialState: ResultState = {
-  results: [],
+  albums: [],
+  songs: [],
+  artists: [],
+  history: [],
   searchKeyword: "",
+  filter: "history",
 };
 
 const reducer = (
@@ -10,17 +14,23 @@ const reducer = (
   action: SearchAction
 ): ResultState => {
   switch (action.type) {
-    case actionTypes.SET_NEW_RELEASES:
-      return {
-        ...state,
-        results: [],
-      };
     case actionTypes.SEARCH:
-      console.log(action.payload);
-
       return {
         ...state,
-        searchKeyword: "action.payload",
+        searchKeyword: action.payloadKeyword!,
+        albums: action.payloadAlbums!,
+        songs: action.payloadSongs!,
+        artists: action.payloadArtists!,
+      };
+    case actionTypes.FILTER:
+      return {
+        ...state,
+        filter: action.payloadFilter!,
+      };
+    case actionTypes.HISTORY:
+      return {
+        ...state,
+        history: action.payloadHistory!,
       };
   }
   return state;

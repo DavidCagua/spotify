@@ -7,12 +7,19 @@ export const httpTokenInstance = axios.create({
     "Content-Type": "application/x-www-form-urlencoded",
   },
   auth: {
-    username: "9aaaddb6b4a84a13a3757fdfbe6244b4",
-    password: "bfde46eb6a904bf79b22937e988123c9",
+    username: process.env.REACT_APP_CLIENT_ID!,
+    password: process.env.REACT_APP_SECRET!,
   },
 });
 export const httpSpotifyInstance = axios.create({
   baseURL: "https://api.spotify.com/v1/",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+});
+export const httpServerInstance = axios.create({
+  baseURL: "http://localhost:4000/",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
