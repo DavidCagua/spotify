@@ -24,9 +24,9 @@ const CardStyled = styled.div`
     vertical-align: top;
   }
   h2 {
-    margin: 0 10px;
-    margin-bottom: 1rem;
-    font-size: 18px;
+    font-size: 16px;
+    padding: 8px;
+    text-align: center;
     font-weight: 700;
   }
   .bottom {
@@ -34,7 +34,6 @@ const CardStyled = styled.div`
     background: var(--white);
     border-radius: 900px;
     color: var(--black);
-    padding: 4px;
   }
 `;
 function Card({ result }: CardProps) {
