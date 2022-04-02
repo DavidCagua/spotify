@@ -1,11 +1,13 @@
 interface Result {
+  date: any;
   id: number;
   name: string;
   image: string;
   images: {
     url;
   }[];
-  preview_url;
+  preview_url: string;
+  date: string;
 }
 
 type ResultState = {

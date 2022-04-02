@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 import apiService from "../api/api-service";
+import { setHistory } from "../store/actionCreators";
+
 type CardProps = {
   result: Result;
 };
@@ -34,10 +38,14 @@ const CardStyled = styled.div`
   }
 `;
 function Card({ result }: CardProps) {
+  const dispatch: Dispatch<any> = useDispatch();
+
   let audio = new Audio(result.image);
-  const start = async (e: any) => {
+  const start = async () => {
     audio.play();
-    await apiService.postHistory(JSON.stringify(result));
+    result.date = Date.now();
+    const response = await apiService.postHistory(JSON.stringify(result));
+    dispatch(setHistory(response.data));
   };
   return (
     <CardStyled>

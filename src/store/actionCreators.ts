@@ -31,3 +31,14 @@ export function filterReducer(
     dispatch(action);
   };
 }
+
+export function setHistory(history = []) {
+  const action: SearchAction = {
+    type: actionTypes.HISTORY,
+    payloadHistory: history,
+  };
+
+  return (dispatch: DispatchType) => {
+    dispatch(action);
+  };
+}

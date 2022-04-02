@@ -20,6 +20,7 @@ const SearchBarStyled = styled.label`
   margin-top: 10px;
   i {
     margin-right: 1em;
+    cursor: pointer;
   }
   input {
     flex: 1;
@@ -66,6 +67,11 @@ function SearchBar({ ...props }) {
       });
 
       dispatch(searchReducer(keyword, albums, artists, songs));
+      if (keyword) {
+        dispatch(filterReducer("bestMatch"));
+      } else {
+        dispatch(filterReducer("history"));
+      }
     }, 300)
   ).current;
 
@@ -76,16 +82,14 @@ function SearchBar({ ...props }) {
   }, [debouncedSearch]);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (inputValue) {
-      debouncedSearch(e.target.value);
-    }
+    debouncedSearch(e.target.value);
     setInputValue(e.target.value);
-    dispatch(filterReducer("bestMatch"));
   };
 
   const handleClick = () => {
     setInputValue("");
     dispatch(searchReducer(""));
+    dispatch(filterReducer("history"));
   };
   return (
     <SearchBarStyled>

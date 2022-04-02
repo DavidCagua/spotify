@@ -23,18 +23,22 @@ httpSpotifyInstance.interceptors.response.use(
   async (err) => {
     const originalConfig = err.config;
     if (err.response.status === 401) {
-      console.log("expired");
-
+      originalConfig._retry = true;
       try {
-        let response = await httpTokenInstance.post(
+        const response = await httpTokenInstance.post(
           "",
           "grant_type=client_credentials"
         );
         window.localStorage.setItem("accessToken", response.data.access_token);
-        return httpTokenInstance(originalConfig);
+        httpSpotifyInstance.defaults.headers.common![
+          "Authorization"
+        ] = `Bearer ${response.data.access_token}`;
+        return httpSpotifyInstance(originalConfig);
       } catch {
         throw new Error();
       }
+    } else {
+      throw new Error();
     }
   }
 );

@@ -25,11 +25,13 @@ function ResultComponent({ payload = [], type }: ResultComponentProps) {
         payload.map((result) => {
           switch (type) {
             case "album":
-              return <CardAlbum result={result} />;
+              return <CardAlbum key={result.id} result={result} />;
             case "artist":
-              return <CardArtist result={result} />;
+              return <CardArtist key={result.id} result={result} />;
             case "song":
-              return <CardSong result={result} />;
+              return (
+                <CardSong key={`${result.id}${result.date}`} result={result} />
+              );
           }
         })
       ) : (
