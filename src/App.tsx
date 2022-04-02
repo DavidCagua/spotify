@@ -17,7 +17,6 @@ function App() {
     apiService.getHistory().then((res) => {
       setHistory(res.data);
     });
-    console.log(process.env.REACT_APP_KEY);
   }, []);
   return (
     <Wrapper>

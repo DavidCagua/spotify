@@ -19,7 +19,7 @@ export const httpSpotifyInstance = axios.create({
   },
 });
 export const httpServerInstance = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "https://node-redis-david.herokuapp.com/",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
