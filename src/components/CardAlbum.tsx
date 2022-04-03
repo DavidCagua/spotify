@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-type CardProps = {
+type CardAlbumProps = {
   result: Result;
 };
-const CardStyled = styled.div`
+const CardAlbumStyled = styled.div`
   background: var(--black);
   text-align: left;
   border-radius: 5px;
@@ -20,15 +20,15 @@ const CardStyled = styled.div`
     font-weight: 700;
   }
 `;
-function Card({ result }: CardProps) {
+function CardAlbum({ result }: CardAlbumProps) {
   return (
-    <CardStyled>
+    <CardAlbumStyled>
       <div>
         <img src={result.image} alt="" />
         <h2>{result.name}</h2>
       </div>
-    </CardStyled>
+    </CardAlbumStyled>
   );
 }
 
-export default Card;
+export default React.memo(CardAlbum);

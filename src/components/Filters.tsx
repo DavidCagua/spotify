@@ -17,4 +17,4 @@ function Filters() {
   );
 }
 
-export default Filters;
+export default React.memo(Filters);

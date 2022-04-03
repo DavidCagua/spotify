@@ -37,7 +37,9 @@ const SearchBarStyled = styled.label`
   }
 `;
 
-function SearchBar({ ...props }) {
+function SearchBar() {
+  console.log("searchBar");
+
   const dispatch: Dispatch<any> = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const debouncedSearch = React.useRef(
@@ -100,7 +102,6 @@ function SearchBar({ ...props }) {
       <input
         type="text"
         placeholder="Buscar: artista, album, canción"
-        {...props}
         onChange={handleChange}
         value={inputValue}
       />
@@ -108,4 +109,4 @@ function SearchBar({ ...props }) {
   );
 }
 
-export default SearchBar;
+export default React.memo(SearchBar);

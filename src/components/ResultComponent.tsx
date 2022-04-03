@@ -41,4 +41,4 @@ function ResultComponent({ payload = [], type }: ResultComponentProps) {
   );
 }
 
-export default ResultComponent;
+export default React.memo(ResultComponent);

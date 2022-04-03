@@ -48,4 +48,4 @@ function ResultList({
   );
 }
 
-export default ResultList;
+export default React.memo(ResultList);

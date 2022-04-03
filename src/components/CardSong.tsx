@@ -5,10 +5,10 @@ import { Dispatch } from "redux";
 import apiService from "../api/api-service";
 import { setHistory } from "../store/actionCreators";
 
-type CardProps = {
+type CardSongProps = {
   result: Result;
 };
-const CardStyled = styled.div`
+const CardSongStyled = styled.div`
   cursor: pointer;
   &:hover {
     background-color: var(--green);
@@ -36,7 +36,7 @@ const CardStyled = styled.div`
     color: var(--black);
   }
 `;
-function Card({ result }: CardProps) {
+function CardSong({ result }: CardSongProps) {
   const dispatch: Dispatch<any> = useDispatch();
 
   let audio = new Audio(result.image);
@@ -47,7 +47,7 @@ function Card({ result }: CardProps) {
     dispatch(setHistory(response.data));
   };
   return (
-    <CardStyled>
+    <CardSongStyled>
       <div>
         <img
           src="https://cdn-icons-png.flaticon.com/512/98/98690.png"
@@ -57,8 +57,8 @@ function Card({ result }: CardProps) {
           <h2>{result.name}</h2>
         </div>
       </div>
-    </CardStyled>
+    </CardSongStyled>
   );
 }
 
-export default Card;
+export default React.memo(CardSong);
